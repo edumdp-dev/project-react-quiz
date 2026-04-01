@@ -1,0 +1,238 @@
+/* ═══════════════════════════════════════════════════════════
+   Design System Tokens (CSS Variables)
+   Extracted from M3 prototypes & updated for better animations
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Colors */
+  --primary: #1c0c3c;
+  --on-primary: #ffffff;
+  --primary-container: #3d2375;
+  --on-primary-container: #eaddff;
+  
+  --primary-fixed: #eaddff;
+  --primary-fixed-dim: #d0bcff;
+  --on-primary-fixed: #21005d;
+
+  --secondary: #4a4458;
+  --on-secondary: #ffffff;
+  --secondary-container: #e8def8;
+  --on-secondary-container: #1d192b;
+
+  --surface: #fef7ff;
+  --on-surface: #1d1b20;
+  --on-surface-variant: #49454f;
+  
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f7f2fa;
+  --surface-container: #f3edf7;
+  --surface-container-high: #ece6f0;
+  --surface-container-highest: #e6e0e9;
+
+  --outline: #79747e;
+  --outline-variant: #cac4d0;
+
+  --error: #b3261e;
+  --on-error: #ffffff;
+  --error-container: #f9dedc;
+  --on-error-container: #410e0b;
+
+  --correct: #1da457;
+  --correct-light: #e6f6ee;
+  --incorrect: #db4900;
+  --incorrect-light: #fbece5;
+
+  /* Typography */
+  --font-headline: 'Manrope', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Spacing & Radii */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(28, 12, 60, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(28, 12, 60, 0.08), 0 2px 4px -1px rgba(28, 12, 60, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(28, 12, 60, 0.08), 0 4px 6px -2px rgba(28, 12, 60, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(28, 12, 60, 0.1), 0 10px 10px -5px rgba(28, 12, 60, 0.04);
+  --shadow-card: 0 8px 32px rgba(28, 12, 60, 0.08); /* Smoother card shadow */
+  --shadow-button: 0 4px 12px rgba(28, 12, 60, 0.15); /* Glow for primary buttons */
+  
+  --shadow-hover: 0 12px 32px rgba(28, 12, 60, 0.12); /* Lifted hover state */
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Global Resets
+   ═══════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--surface-container-low);
+  color: var(--on-surface);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Material Symbols Adjustments */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Global Animations & Utilities
+   ═══════════════════════════════════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.5); }
+  70% { transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 500px;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--transition-slow) forwards;
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: slideUp var(--transition-bounce) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--transition-bounce) forwards;
+}
+
+.animate-pop-in {
+  animation: popIn var(--transition-bounce) forwards;
+}
+
+/* Stagger Children Utility */
+.stagger > * {
+  opacity: 0;
+  animation: slideUp var(--transition-bounce) forwards;
+}
+
+.stagger > *:nth-child(1) { animation-delay: 50ms; }
+.stagger > *:nth-child(2) { animation-delay: 100ms; }
+.stagger > *:nth-child(3) { animation-delay: 150ms; }
+.stagger > *:nth-child(4) { animation-delay: 200ms; }
+.stagger > *:nth-child(5) { animation-delay: 250ms; }
+
+/* ═══════════════════════════════════════════════════════════
+   Background Blob Decorators
+   ═══════════════════════════════════════════════════════════ */
+.bg-blobs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bg-blobs::before,
+.bg-blobs::after {
+  content: '';
+  position: absolute;
+  filter: blur(80px);
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: float 15s ease-in-out infinite alternate;
+}
+
+.bg-blobs::before {
+  width: 400px;
+  height: 400px;
+  background: var(--primary-fixed);
+  top: -100px;
+  right: -100px;
+}
+
+.bg-blobs::after {
+  width: 300px;
+  height: 300px;
+  background: var(--surface-container-highest);
+  bottom: 0;
+  left: -50px;
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-30px, 30px); }
+}
+
+/* ── Global Spinner ───────────────────────────────────────── */
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid var(--surface-container-high);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
